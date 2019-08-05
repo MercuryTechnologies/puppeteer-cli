@@ -14,6 +14,8 @@ const argv = require('yargs')
                 boolean: true,
                 default: true
             },
+            chrome: {
+            },
             'margin-top': {
                 default: '6.25mm'
             },
@@ -73,7 +75,7 @@ const argv = require('yargs')
     .argv;
 
 async function print(argv) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({executablePath: argv.chrome});
     const page = await browser.newPage();
     const url = isUrl(argv.input) ? parseUrl(argv.input).toString() : fileUrl(argv.input);
 
@@ -101,7 +103,7 @@ async function print(argv) {
 }
 
 async function screenshot(argv) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({executablePath: argv.chrome});
     const page = await browser.newPage();
     const url = isUrl(argv.input) ? parseUrl(argv.input).toString() : fileUrl(argv.input);
 
